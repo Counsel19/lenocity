@@ -40,7 +40,7 @@ const page: FC<pageProps> = ({}) => {
             Empowering Young Minds with Essential Tech Skills
           </h3>
           <p className="text-[#667085] text-center text-[1.6rem] lg:text-2xl leading-[3rem]">
-            Explore our services and find the perfect fit for your child's
+            Explore our services and find the perfect fit for your child&apos;s
             learning journey.
           </p>
         </div>

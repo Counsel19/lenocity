@@ -15,8 +15,8 @@ const ContactUs: FC<ContactUsProps> = () => {
             Get in Touch with Us
           </h3>
           <p className="text-[#667085] text-center text-[1.6rem] lg:text-2xl leading-[3rem]">
-            We’re here to help! Reach out to us today, and let’s start the
-            conversation about how we can support your child’s learning journey.
+            We&apos;re here to help! Reach out to us today, and let&apos;s start the
+            conversation about how we can support your child&apos;s learning journey.
           </p>
         </div>
 

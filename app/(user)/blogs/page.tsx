@@ -16,7 +16,7 @@ const News: FC<NewsProps> = () => {
             OUR BLOG
           </h3>
           <p className="text-[#667085] text-center text-[1.6rem] lg:text-2xl leading-[3rem]">
-            Explore our blog to discover how we’re shaping the next generation
+            Explore our blog to discover how we&apos;re shaping the next generation
             of tech-savvy innovators.
           </p>
         </div>
