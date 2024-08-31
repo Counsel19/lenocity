@@ -93,8 +93,8 @@ const ResetPassword: FC<pageProps> = ({}) => {
       });
 
     try {
-      const res = await axios.post("/api/users/single/reset-password", {
-        userId: userData.id,
+      const res = await axios.post("/api/user/reset-password", {
+        userId: userData._id,
         password,
       });
 
@@ -134,18 +134,18 @@ const ResetPassword: FC<pageProps> = ({}) => {
   };
 
   return (
-    <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div className="flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="w-full max-w-md space-y-8">
         {showBanner ? (
           <div className="p-4 bg-emerald-100 flex justify-between items-center">
             <div>
               <h4 className="font-semibold "> Password Reset Successful!</h4>
 
-              <p className="text-slate-500 text-sm">
+              <p className="text-slate-500 ">
                 You can now Sign In with your new password{" "}
               </p>
               <Link
-                className="text-sm font-semibold text-emerald-600 underline"
+                className=" font-semibold text-emerald-600 underline"
                 href="/sign-in"
               >
                 Sign In Here
@@ -179,7 +179,7 @@ const ResetPassword: FC<pageProps> = ({}) => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                className="relative block w-full appearance-none rounded-md border border-gray-300 px-3 py-3 my-1 text-gray-900 placeholder-gray-500 focus:z-10  sm:text-sm"
+                className="relative block w-full appearance-none rounded-md border border-gray-300 px-3 py-3 my-1 text-gray-900 placeholder-gray-500 focus:z-10  sm:"
                 placeholder="New Password"
               />
             </div>
@@ -195,7 +195,7 @@ const ResetPassword: FC<pageProps> = ({}) => {
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 required
-                className="relative block w-full appearance-none rounded-md border border-gray-300 px-3 py-3 my-1 text-gray-900 placeholder-gray-500 focus:z-10  sm:text-sm"
+                className="relative block w-full appearance-none rounded-md border border-gray-300 px-3 py-3 my-1 text-gray-900 placeholder-gray-500 focus:z-10  sm:"
                 placeholder="Confirm Password"
               />
             </div>
@@ -206,7 +206,7 @@ const ResetPassword: FC<pageProps> = ({}) => {
               type="submit"
               isLoading={isLoading}
               disabled={isLoading || errors}
-              className="group relative flex w-full justify-center rounded-md border border-transparent py-3 px-4 text-sm font-medium text-white  disabled:cursor-not-allowed"
+              className="group relative flex w-full justify-center rounded-md border border-transparent py-3 px-4  font-medium text-white  disabled:cursor-not-allowed"
             >
               Reset Password
             </Button>

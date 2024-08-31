@@ -53,6 +53,7 @@ export async function POST(req: NextRequest) {
 
   const { title, body, image } = resbody;
   try {
+    await connectDB();
     const session = await getAuthSession();
 
     if (!session || !session?.user) {

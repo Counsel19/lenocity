@@ -27,7 +27,7 @@ const ForgotPassword: FC<pageProps> = ({}) => {
     setIsLoading(true);
 
     try {
-      const res = await axios.post("/api/users/single/forgot-password", {
+      const res = await axios.post("/api/user/forgot-password", {
         email,
       });
 
@@ -64,14 +64,14 @@ const ForgotPassword: FC<pageProps> = ({}) => {
   };
 
   return (
-    <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-      <div className="w-full max-w-md space-y-8">
+    <div className="flex h-screen text-base items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+      <div className="w-full max-w-lg space-y-20">
         {showBanner ? (
           <div className="p-4 bg-emerald-100 flex justify-between items-center">
             <div>
               <h4 className="font-semibold "> Email Send Successfully!</h4>
 
-              <p className="text-slate-500 text-sm">
+              <p className="text-slate-500 text-[1.2rem]">
                 Please Check you Email for for Reset Link
               </p>
             </div>
@@ -81,7 +81,7 @@ const ForgotPassword: FC<pageProps> = ({}) => {
           </div>
         ) : null}
         <div>
-          <h2 className="mt-6 text-center text-3xl font-semibold tracking-tight text-gray-900">
+          <h2 className="mb-8 text-center text-3xl font-semibold tracking-tight text-gray-900">
             Forgot Passord
           </h2>
 
@@ -104,7 +104,7 @@ const ForgotPassword: FC<pageProps> = ({}) => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="relative block w-full appearance-none rounded-md border border-gray-300 px-3 py-3 my-1 text-gray-900 placeholder-gray-500 focus:z-10  sm:text-sm"
+                className="relative block w-full appearance-none rounded-md border border-gray-300 px-3 py-3 my-1 text-gray-900 placeholder-gray-500 focus:z-10  sm:"
                 placeholder="name@mail.com"
               />
             </div>
@@ -115,7 +115,7 @@ const ForgotPassword: FC<pageProps> = ({}) => {
               type="submit"
               isLoading={isLoading}
               disabled={isLoading}
-              className="group relative flex w-full justify-center rounded-md border border-transparent py-3 px-4 text-sm font-medium text-white  disabled:cursor-not-allowed"
+              className="group relative flex w-full justify-center rounded-md border border-transparent py-3 px-4  font-medium text-white  disabled:cursor-not-allowed"
             >
               Request Reset
             </Button>

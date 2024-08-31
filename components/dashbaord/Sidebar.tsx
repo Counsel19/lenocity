@@ -15,10 +15,10 @@ const Sidebar: FC<SidebarProps> = ({}) => {
 
   const handleSignOut = async () => {
     signOut({
-      callbackUrl: `${window.location.origin}/sign-in`,
+      callbackUrl: `${window.location.origin}/login`,
     });
 
-    router.replace("/sign-in");
+    router.replace("/login");
   };
   return (
     <div className="w-full text-base h-full space-y-2 text-white rounded-lg grid grid-rows-[auto_1fr]">

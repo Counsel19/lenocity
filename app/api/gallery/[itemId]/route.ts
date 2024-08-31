@@ -1,4 +1,5 @@
 import { getAuthSession } from "@/lib/auth";
+import { connectDB } from "@/lib/mongoose";
 import Gallery from "@/models/Gallery";
 import { NextRequest } from "next/server";
 
@@ -9,6 +10,7 @@ export async function DELETE(
   const { itemId } = params;
 
   try {
+    await connectDB();
     const session = await getAuthSession();
 
     if (!session || !session?.user) {

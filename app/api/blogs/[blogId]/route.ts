@@ -46,11 +46,13 @@ export async function PATCH(
   req: NextRequest,
   { params }: { params: { blogId: string } }
 ) {
+
   const body = await req.json();
 
   const { blogId } = params;
 
   try {
+    await connectDB();
     const session = await getAuthSession();
 
     if (!session || !session?.user) {
@@ -86,6 +88,7 @@ export async function DELETE(
   const { blogId } = params;
 
   try {
+    await connectDB();
     const session = await getAuthSession();
 
     if (!session || !session?.user) {

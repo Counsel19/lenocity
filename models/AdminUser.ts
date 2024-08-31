@@ -25,6 +25,8 @@ const adminUserSchema = new mongoose.Schema(
       enum: ["admin", "superadmin"],
       default: "admin",
     },
+    resetToken: String,
+    passwordResetExpires: String,
   },
   { timestamps: true }
 );
