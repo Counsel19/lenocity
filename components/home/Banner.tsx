@@ -13,7 +13,7 @@ const Banner: FC<BannerProps> = ({}) => {
           Interactive Courses, Real-World Skills
         </h4>
         <h2 className="lg:w-[80%] capitalize text-[3.5rem] lg:text-[5.9rem] font-bold leading-[4rem] lg:leading-[6.2rem]">
-          Where Yongstars{" "}
+          Where Yongsters{" "}
           <span className="font-semibold text-orange-500">
             {" "}
             &lt;Code&nbsp;/&gt;
