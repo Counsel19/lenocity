@@ -70,7 +70,7 @@ const UserProfileForm: FC<UserProfileFormProps> = ({
           variant: "destructive",
         });
 
-      session?.user?._id && dispatch(getSingleUser(session?.user?._id));
+      session?.user?.id && dispatch(getSingleUser(session?.user?.id));
       toast({
         title: "Profile Update Success",
         description: "You have Updated your profile successfully",
