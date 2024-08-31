@@ -23,10 +23,10 @@ const Layout: FC<layoutProps> = ({ children }) => {
   
   useEffect(() => {
     const getUserInfo = async () => {
-      if (!session?.user?._id) return;
+      if (!session?.user?.id) return;
       try {
         if (!userProfile) {
-          dispatch(getSingleUser(session?.user?._id));
+          dispatch(getSingleUser(session?.user?.id));
         }
       } catch (error) {
         return toast({

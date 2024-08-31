@@ -73,7 +73,7 @@ export async function POST(req: NextRequest) {
     const galleryItem = await Gallery.create({
       title,
       image,
-      uploadedBy: session.user._id,
+      uploadedBy: session.user.id
     });
 
     return new Response(JSON.stringify({ galleryItem }), {

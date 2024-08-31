@@ -25,7 +25,7 @@ export async function PATCH(req: NextRequest) {
     }
 
     const user = await AdminUser.findOne({
-      _id: session.user._id,
+      _id: session.user.id,
     }).select("+password");
 
     if (!user) {
@@ -51,7 +51,7 @@ export async function PATCH(req: NextRequest) {
 
     const hashedPassword = await bcrypt.hash(newPassword, 10);
 
-    await AdminUser.findByIdAndUpdate(session?.user._id, {
+    await AdminUser.findByIdAndUpdate(session?.user.id, {
       password: hashedPassword,
     });
 

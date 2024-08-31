@@ -19,7 +19,7 @@ export const authOptions: NextAuthOptions = {
     Credentials({
       name: "Credentials",
       credentials: {
-        email: {},
+        email: { },
         password: {},
       },
       async authorize(credentials) {
@@ -35,22 +35,22 @@ export const authOptions: NextAuthOptions = {
             }
           );
 
-          if (res.status === 200) {
-            const { name, _id, email, role, image } = res.data.user;
-            const user = {
-              _id,
-              name,
-              email,
-              role,
-              image,
-              token: res.data.token,
-            };
-            return user; // User interface we declared in next-auth.d.ts
-          } else throw new Error("Login failed");
+          const { name, _id, email, role, image } = res.data.user;
+          const user = {
+            id: _id,
+            name,
+            email,
+            role,
+            image,
+            token: res.data.token,
+          };
+          return user; // User interface we declared in next-auth.d.ts
         } catch (error) {
           if (error instanceof AxiosError) {
             throw new Error(error.response?.data);
           }
+
+          throw new Error("Login Failed")
         }
       },
     }),

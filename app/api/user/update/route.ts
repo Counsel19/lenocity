@@ -20,7 +20,7 @@ export async function PATCH(req: NextRequest) {
       // Query the database for the paginated data
 
       const user = await AdminUser.findByIdAndUpdate(
-        session?.user._id,
+        session?.user.id,
         resbody,
         {
           new: true,

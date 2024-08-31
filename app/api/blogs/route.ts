@@ -79,10 +79,10 @@ export async function POST(req: NextRequest) {
       title,
       body,
       image,
-      author: session.user._id,
+      author: session.user.id,
     });
 
-    return new Response(JSON.stringify({ id: blog }), {
+    return new Response(JSON.stringify({ blog }), {
       status: 201,
     });
   } catch (error) {
