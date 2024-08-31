@@ -6,19 +6,27 @@ import ServicesGrid from "./molecules/ServicesGrid";
 
 interface ServicesProps {}
 
-const services = [
+
+export const services = [
+  {
+    _id: "0",
+    name: "Coding for youngsters (8-12years)",
+    description: "Basic coding concept and syntax, development of interpersonal skills(good communication, logical reasoning, collaboration, creative thinking, team-work, numericals and time management), game and challenge building",
+    image: "/images/coding.jpg",
+    link: "/",
+  },
   {
     _id: "1",
-    name: "Web Devlopment",
-    description: "Learn how to create your own websites from scratch",
-    image: "/images/icon_brand.png",
+    name: "Web Design",
+    description: " Focus on HTML, CSS, BOOTSTRAP, hosting and Version control",
+    image: "/images/web-pc.jpg",
     link: "/",
   },
   {
     _id: "2",
     name: "Graphic Design",
-    description: "Unleash your creativity with our Graphic Design course!",
-    image: "/images/icon_brand.png",
+    description: "Focus on use of Canva, AI tools and Adobe for creative designs.",
+    image: "/images/design.jpg",
     link: "/",
   },
   {
@@ -26,7 +34,15 @@ const services = [
     name: "Computer Appreciation ",
     description:
       "Get comfortable with computers in our Computer Appreciation course!",
-    image: "/images/icon_brand.png",
+    image: "/images/computer-appreciation.png",
+    link: "/",
+  },
+  {
+    _id: "4",
+    name: "Engineering ",
+    description:
+      "Fun Engineering activities to  create curiosity and engaged  learning of the basics of Engineering",
+    image: "/images/engineer.jpg",
     link: "/",
   },
 ];

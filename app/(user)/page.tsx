@@ -3,6 +3,7 @@ import Banner from "@/components/home/Banner";
 import BlogSection from "@/components/home/BlogSection";
 import RegisterNow from "@/components/home/RegisterNow";
 import Services from "@/components/home/Services";
+import VisionMission from "@/components/home/VisionMission";
 import WhyChooseUs from "@/components/home/WhyChooseUs";
 
 export default function Home() {
@@ -11,6 +12,7 @@ export default function Home() {
       <div className=" hidden  bg-[url('/images/bg-deco.svg')] bg-cover bg-center absolute top-0 right-0 w-[60%] h-screen md:flex z-0" />
       <Banner />
       <About />
+      <VisionMission />
       <Services />
       <WhyChooseUs />
       <RegisterNow />

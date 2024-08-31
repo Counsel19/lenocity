@@ -2,7 +2,6 @@ import axios, { AxiosError } from "axios";
 import { createAppAsyncThunk } from "../../createAppAsyncThunk";
 import { IUserPassword } from "@/types/users";
 
-
 interface ILogin {
   email: string;
   password: string;
@@ -23,7 +22,7 @@ interface IRegister {
 
 // Add a request interceptor
 const axiosInstance = axios.create({
-  baseURL: "https://api.voranaija.com/api",
+  baseURL: process.env.NEXT_PUBLIC_BASE_URL,
 });
 axiosInstance.interceptors.request.use(
   function (config) {
@@ -74,7 +73,7 @@ export const login = createAppAsyncThunk(
       return { user: userData, token: res.data.token };
     } catch (error) {
       if (error instanceof AxiosError) {
-        return thunkAPI.rejectWithValue(error.response?.data?.message);
+        return thunkAPI.rejectWithValue(error.response?.data);
       }
       return thunkAPI.rejectWithValue("Could not Login User");
     }
@@ -91,7 +90,7 @@ export const register = createAppAsyncThunk(
       );
     } catch (error) {
       if (error instanceof AxiosError) {
-        return thunkAPI.rejectWithValue(error.response?.data?.message);
+        return thunkAPI.rejectWithValue(error.response?.data);
       }
       return thunkAPI.rejectWithValue("Could not Login User");
     }
@@ -111,7 +110,7 @@ export const forgotPassswordHandler = createAppAsyncThunk(
       return { user: res.data.data };
     } catch (error) {
       if (error instanceof AxiosError) {
-        return thunkAPI.rejectWithValue(error.response?.data?.message);
+        return thunkAPI.rejectWithValue(error.response?.data);
       }
       return thunkAPI.rejectWithValue("Could Request Password Reset");
     }
@@ -137,7 +136,7 @@ export const resetPassword = createAppAsyncThunk(
       return { user: res.data.data };
     } catch (error) {
       if (error instanceof AxiosError) {
-        return thunkAPI.rejectWithValue(error.response?.data?.message);
+        return thunkAPI.rejectWithValue(error.response?.data);
       }
       return thunkAPI.rejectWithValue("Could not Reset password");
     }
@@ -150,15 +149,11 @@ export const updateUserProfileDetails = createAppAsyncThunk(
     data: {
       name: string;
       email: string;
-      phone: string;
-      address: string;
-      lga_id: string;
-      state_id: string;
     },
     thunkAPI
   ) => {
     try {
-      const res = await axiosInstance.post(`/user/update/profile`, data);
+      const res = await axiosInstance.patch(`/user/update`, data);
       const userProfileRetrieved = sessionStorage.getItem("userProfile");
 
       if (userProfileRetrieved) {
@@ -174,7 +169,7 @@ export const updateUserProfileDetails = createAppAsyncThunk(
       return { user: res.data.data };
     } catch (error) {
       if (error instanceof AxiosError) {
-        return thunkAPI.rejectWithValue(error.response?.data?.message);
+        return thunkAPI.rejectWithValue(error.response?.data);
       }
       return thunkAPI.rejectWithValue("Could not Update your profile");
     }
@@ -185,14 +180,29 @@ export const changeUserPassword = createAppAsyncThunk(
   "auth/changeUserPassword",
   async (data: IUserPassword, thunkAPI) => {
     try {
-      await axiosInstance.post(
-        `/user/change-password`,
+      await axiosInstance.patch(
+        `/user/update-password`,
 
         data
       );
     } catch (error) {
       if (error instanceof AxiosError) {
-        return thunkAPI.rejectWithValue(error.response?.data?.message);
+        return thunkAPI.rejectWithValue(error.response?.data);
+      }
+      return thunkAPI.rejectWithValue("Could not Change Password");
+    }
+  }
+);
+
+export const getSingleUser = createAppAsyncThunk(
+  "auth/getSingleUser",
+  async (userId: string, thunkAPI) => {
+    try {
+      const res = await axiosInstance.get(`/user/${userId}`);
+      return res.data.user;
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        return thunkAPI.rejectWithValue(error.response?.data);
       }
       return thunkAPI.rejectWithValue("Could not Change Password");
     }

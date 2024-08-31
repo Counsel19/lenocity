@@ -4,7 +4,7 @@ import { createAppAsyncThunk } from "../../createAppAsyncThunk";
 
 // Add a request interceptor
 const axiosInstance = axios.create({
-  baseURL: "https://api.niprfct.org.ng/api",
+  baseURL: process.env.NEXT_PUBLIC_BASE_URL,
 });
 
 axiosInstance.interceptors.request.use(
@@ -27,41 +27,50 @@ export const fetchGallery = createAppAsyncThunk(
   "gallery/fetchGallery",
   async (_, thunkAPI) => {
     try {
-      // const res = await axiosInstance.get(`/gallery`);
+      const res = await axiosInstance.get(`/gallery`);
 
-      // return res.data.gallery;
-
-      return [
-        {
-          _id: "1",
-          title: "First Cohort Web Deb Training 2024",
-          path: "/images/little-boy-laptop.jpg",
-          created_at: "",
-        },
-        {
-          _id: "2",
-          title: "First Cohort Web Deb Training 2024",
-          path: "/images/little-boy-laptop.jpg",
-          created_at: "",
-        },
-        {
-          _id: "3",
-          title: "First Cohort Web Deb Training 2024",
-          path: "/images/little-boy-laptop.jpg",
-          created_at: "",
-        },
-        {
-          _id: "4",
-          title: "First Cohort Web Deb Training 2024",
-          path: "/images/little-boy-laptop.jpg",
-          created_at: "",
-        },
-      ];
+      return {
+        gallery: res.data.gallery,
+        currentPage: res.data.currentPage,
+        total: res.data.total,
+        numberOfPages: res.data.numberOfPages,
+      };
     } catch (error) {
       if (error instanceof AxiosError) {
-        return thunkAPI.rejectWithValue(error.response?.data?.message);
+        return thunkAPI.rejectWithValue(error.response?.data);
       }
       return thunkAPI.rejectWithValue("Could not Get Gallery");
+    }
+  }
+);
+
+export const addToGallery = createAppAsyncThunk(
+  "gallery/addToGallery",
+  async (payload: { title: string; image: string }, thunkAPI) => {
+    try {
+      const res = await axiosInstance.post(`/gallery`, payload);
+
+      return res.data.galleryItem;
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        return thunkAPI.rejectWithValue(error.response?.data);
+      }
+      return thunkAPI.rejectWithValue("Could not Get Gallery");
+    }
+  }
+);
+export const deleteItemFromGallery = createAppAsyncThunk(
+  "gallery/deleteItemFromGallery",
+  async (itemId: string, thunkAPI) => {
+    try {
+      const res = await axiosInstance.delete(`/gallery/${itemId}`);
+
+      return res.data;
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        return thunkAPI.rejectWithValue(error.response?.data);
+      }
+      return thunkAPI.rejectWithValue("Could not Delete Gallery Item");
     }
   }
 );

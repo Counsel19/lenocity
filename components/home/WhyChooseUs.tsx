@@ -1,4 +1,4 @@
-import { SquareTerminal } from "lucide-react";
+import { MessageCircleQuestion, Speech, SquareTerminal } from "lucide-react";
 import Image from "next/image";
 import { FC } from "react";
 
@@ -15,8 +15,8 @@ const WhyChooseUs: FC<WhyChooseUsProps> = ({}) => {
             BENEFITS FOR TRAINING WITH US
           </h2>
         </div>
-        <div className="grid gap-[5rem] lg:grid-cols-[1.2fr_1fr]">
-          <div className="space-y-10">
+        <div className="grid gap-[5rem] lg:grid-cols-[1.2fr_1fr] justify-center items-center">
+          <div className="space-y-10  ">
             <div className="flex gap-6 items-center">
               <div className="bg-violet-200 text-violet-500 p-6 rounded-xl">
                 <SquareTerminal />
@@ -26,36 +26,36 @@ const WhyChooseUs: FC<WhyChooseUsProps> = ({}) => {
                   Hands-On Learning Experience
                 </h5>
                 <p className="text-slate-500 text-base leading-8 lg:w-[70%]">
-                  Kids and teens gain practical, hands-on experience with the
-                  latest technology,
+                  Youngsters gain practical, hands-on experience with the latest
+                  technology,
                 </p>
               </div>
             </div>
             <div className="flex gap-6 items-center">
               <div className="bg-emerald-200 text-emerald-500 p-6 rounded-xl">
-                <SquareTerminal />
+                <Speech />
               </div>
               <div className="space-y-3">
                 <h5 className="font-semibold text-[1.6rem] text-slate-800">
-                  Hands-On Learning Experience
+                  Developing Interpersonal Skills
                 </h5>
                 <p className="text-slate-500 text-base leading-8 lg:w-[70%]">
-                  Kids and teens gain practical, hands-on experience with the
-                  latest technology,
+                  Enhance communication and teamwork abilities through
+                  collaborative projects.
                 </p>
               </div>
             </div>
             <div className="flex gap-6 items-center">
               <div className="bg-pink-200 text-pink-500 p-6 rounded-xl">
-                <SquareTerminal />
+                <MessageCircleQuestion />
               </div>
               <div className="space-y-3">
                 <h5 className="font-semibold text-[1.6rem] text-slate-800">
-                  Hands-On Learning Experience
+                  Career Guidance and Support:
                 </h5>
                 <p className="text-slate-500 text-base leading-8 lg:w-[70%]">
-                  Kids and teens gain practical, hands-on experience with the
-                  latest technology,
+                  Receive advice on career paths, resume building, and interview
+                  preparation to help secure internships and job placements.
                 </p>
               </div>
             </div>
@@ -68,12 +68,12 @@ const WhyChooseUs: FC<WhyChooseUsProps> = ({}) => {
               src={"/images/gradient.png"}
               className="absolute right-[5%] -top-[20rem]"
             /> */}
-            <div className=" rounded-[2rem] w-[90%] overflow-hidden relative">
+            <div className=" rounded-[2rem] lg:w-[80%] h-[350px] overflow-hidden relative">
               <div />
               <Image
                 width={500}
                 height={600}
-                src={"/images/little-girl-studying.jpg"}
+                src={"/images/cute-young-girl.jpg"}
                 alt="Little Girls Studying"
                 className="w-full h-full object-cover"
               />

@@ -8,7 +8,7 @@ export interface IContactInfo {
 }
 
 export const sendContactMsg = async (info: IContactInfo) => {
-  const res = await axios.post(`/contact/create`, info);
+  const res = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/send-mail`, info);
 
   return res.data;
 };

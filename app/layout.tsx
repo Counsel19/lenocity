@@ -27,7 +27,7 @@ export default function RootLayout({
         <StoreProvider>
           {children}
           <Link
-            href=""
+            href="https://wa.me/+2348182556227"
             className="fixed w-[50px] h-[50px] flex border-2 border-green-500 overflow-hidden  bottom-4 right-8 bg-slate-50 text-white rounded-full shadow-lg z-50"
           >
             <Image

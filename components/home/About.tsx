@@ -6,10 +6,10 @@ import { buttonVariants } from "../ui/button";
 interface AboutProps {}
 const About: FC<AboutProps> = ({}) => {
   return (
-    <div className="relative bg-[url('/images/little-boy-laptop.jpg')]  lg:h-[400px] bg-fixed bg-right bg-cover py-20 ">
+    <div className="relative bg-[url('/images/little-boy-laptop.jpg')]  lg:h-[450px] bg-fixed bg-right bg-cover py-20 ">
       <div className="bg-orange-900 absolute top-0 left-0 right-0 bottom-0 bg-opacity-70" />
 
-      <div className="lg:w-[70%] relative  mx-auto text-center text-white grid place-content-center space-y-10">
+      <div className="lg:w-[70%] relative  m-auto text-center text-white grid place-content-center space-y-10">
         <h4 className="text-lg font-semibold uppercase text-slate-200">
           About Us
         </h4>
@@ -31,7 +31,7 @@ const About: FC<AboutProps> = ({}) => {
           href={"/contact"}
           className={cn(
             buttonVariants({
-              className: "w-[150px] bg-white text-orange-500  mx-auto rounded-[3rem]",
+              className: "w-[150px] bg-white text-orange-500  mx-auto rounded-[3rem] hover:text-white",
             })
           )}
         >

@@ -31,14 +31,14 @@ const NewsGrid: FC<NewsGridProps> = ({ sliceAt }) => {
     <div className="grid lg:grid-cols-3 gap-12">
       {allNewsPost && allNewsPost.length > 0 ? (
         allNewsPost.slice(0, sliceAt ? sliceAt : allNewsPost.length ).map((newsPost) => (
-          <React.Fragment key={newsPost.id}>
+          <React.Fragment key={newsPost._id}>
             <NewsCard data={newsPost} />
           </React.Fragment>
         ))
       ) : allNewsPost && allNewsPost.length == 0 ? (
         <h3 > No Held News Post at the Moment</h3>
       ) : (
-        <div className="col-span-2">
+        <div className="col-span-3">
           <PageLoader />
         </div>
       )}

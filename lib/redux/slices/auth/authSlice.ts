@@ -7,6 +7,7 @@ import {
   resetPassword,
   changeUserPassword,
   register,
+  getSingleUser,
 } from "./authThunk";
 import { IUser } from "@/types/users";
 
@@ -122,6 +123,17 @@ const profileSlice = createSlice({
         state.userProfile = { ...state.userProfile, ...action.payload.user };
       })
       .addCase(updateUserProfileDetails.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload || "";
+      })
+      .addCase(getSingleUser.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getSingleUser.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.userProfile = action.payload;
+      })
+      .addCase(getSingleUser.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload || "";
       })

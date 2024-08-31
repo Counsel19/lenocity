@@ -46,22 +46,14 @@ const ContactForm: FC<ContactFormProps> = () => {
     setIsLoading(true);
 
     try {
-      const res = await sendContactMsg(messageInput);
+      await sendContactMsg(messageInput);
 
-      if (res.status !== "success")
-        return toast({
-          title: "An Error Occurred",
-          description: res.message as string,
-          variant: "destructive",
-        });
-      setMessageInput(initailInfo);
-
-      return toast({
+      toast({
         title: "Message sent Successfully",
         description:
-          "Thank  You for reaching out, we will get back to you shortly",
-        variant: "success",
+          "Thank You for reaching out, we will get back to you shortly",
       });
+      setMessageInput(initailInfo);
     } catch (error) {
       if (error instanceof AxiosError) {
         if (error.response?.status === 400 || error.response?.status === 401) {
@@ -76,7 +68,7 @@ const ContactForm: FC<ContactFormProps> = () => {
       toast({
         title: "Error Sending Message",
         description: "Something went wrong",
-        variant: "destructive",
+        variant: "success",
       });
     } finally {
       setIsLoading(false);

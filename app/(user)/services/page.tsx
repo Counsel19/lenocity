@@ -1,38 +1,15 @@
 import ServicesGrid from "@/components/home/molecules/ServicesGrid";
 import RegisterNow from "@/components/home/RegisterNow";
-import Services from "@/components/home/Services";
+import Services, { services } from "@/components/home/Services";
 import PageTitle from "@/components/shared/PageTitle";
 import { FC } from "react";
 
-const services = [
-  {
-    _id: "1",
-    name: "Web Devlopment",
-    description: "Learn how to create your own websites from scratch",
-    image: "/images/icon_brand.png",
-    link: "/",
-  },
-  {
-    _id: "2",
-    name: "Graphic Design",
-    description: "Unleash your creativity with our Graphic Design course!",
-    image: "/images/icon_brand.png",
-    link: "/",
-  },
-  {
-    _id: "3",
-    name: "Computer Appreciation ",
-    description:
-      "Get comfortable with computers in our Computer Appreciation course!",
-    image: "/images/icon_brand.png",
-    link: "/",
-  },
-];
 
 interface pageProps {}
 const page: FC<pageProps> = ({}) => {
   return (
-    <div className="space-y-[8rem]">
+    <div className="grid gap-20">
+      <div className="hidden  bg-[url('/images/bg-deco.svg')] bg-cover bg-center absolute top-0 right-0 w-[60%] h-[200px] md:flex z-0" />
       <PageTitle title="Services" />
       <div className="space-y-28 w-frame">
         <div className="lg:w-[60%] mx-auto space-y-8">

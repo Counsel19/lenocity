@@ -1,10 +1,11 @@
 import axios, { AxiosError } from "axios";
 import { createAppAsyncThunk } from "../../createAppAsyncThunk";
+import { IAddNews } from "@/types/news";
 // import { IMembershipForm } from "@/types/membership";
 
 // Add a request interceptor
 const axiosInstance = axios.create({
-  baseURL: "https://api.niprfct.org.ng/api",
+  baseURL: process.env.NEXT_PUBLIC_BASE_URL,
 });
 
 axiosInstance.interceptors.request.use(
@@ -24,61 +25,89 @@ axiosInstance.interceptors.request.use(
 
 export const fetchAllNewsPost = createAppAsyncThunk(
   "news/fetchAllNewsPost",
-  async (_, thunkAPI) => {
+  async (page: number | undefined, thunkAPI) => {
     try {
-      // const res = await axiosInstance.get(`/post`);
+      const path = page ? `/blogs?page=${page}` : "/blogs";
+      const res = await axiosInstance.get(path);
 
-      // return res.data.data.posts;
-
-      return [
-        {
-          id: 1,
-          user_id: 101,
-          title: "Kids Code Their Way to Success at Summer Bootcamp",
-          image: "/images/little-boy-laptop.jpg",
-          body: "Our recent summer bootcamp was a huge success, with kids learning the basics of coding through fun and interactive sessions. The week-long event culminated in a showcase where participants presented their own websites and apps.",
-          created_at: "2024-08-01T10:00:00Z",
-          updated_at: "2024-08-01T10:00:00Z",
-        },
-        {
-          id: 2,
-          user_id: 102,
-          title: "Graphic Design Workshop Sparks Creativity in Young Artists",
-          image: "/images/little-boy-laptop.jpg",
-          body: "Our graphic design workshop brought out the creative side of our young participants. They learned how to use professional design tools to create stunning visual projects, from logos to posters, all while having a blast.",
-          created_at: "2024-08-10T14:30:00Z",
-          updated_at: "2024-08-10T14:30:00Z",
-        },
-        {
-          id: 3,
-          user_id: 103,
-          title: "New Computer Appreciation Course Launches This Fall",
-          image: "/images/little-boy-laptop.jpg",
-          body: "We're excited to announce the launch of our new Computer Appreciation course this fall. This beginner-friendly course will introduce kids to the basics of computers, helping them gain confidence in using technology effectively.",
-          created_at: "2024-08-15T08:45:00Z",
-          updated_at: "2024-08-15T08:45:00Z",
-        },
-      ];
+      return {
+        blogs: res.data.blogs,
+        currentPage: res.data.currentPage,
+        total: res.data.total,
+        numberOfPages: res.data.numberOfPages,
+      };
     } catch (error) {
       if (error instanceof AxiosError) {
-        return thunkAPI.rejectWithValue(error.response?.data?.message);
+        return thunkAPI.rejectWithValue(error.response?.data);
       }
       return thunkAPI.rejectWithValue("Could not Get all News Post");
     }
   }
 );
-export const fetchNewsPostById = createAppAsyncThunk(
-  "news/fetchNewsPostById",
-  async (newsId: string, thunkAPI) => {
+export const fetchBlogPostById = createAppAsyncThunk(
+  "news/fetchBlogPostById",
+  async (blogId: string, thunkAPI) => {
     try {
-      const res = await axiosInstance.get(`/post/${newsId}`);
+      const res = await axiosInstance.get(`/blogs/${blogId}`);
 
-      return res.data.data.Post;
+      return res.data.blog
     } catch (error) {
       if (error instanceof AxiosError) {
         return thunkAPI.rejectWithValue(error.response?.data?.message);
       }
       return thunkAPI.rejectWithValue("Could not Get single News Post");
+    }
+  }
+);
+
+export const createBlogPost = createAppAsyncThunk(
+  "news/createBlogPost",
+  async (payload: IAddNews, thunkAPI) => {
+    try {
+      const res = await axiosInstance.post(`/blogs`, payload);
+
+      return res.data;
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        return thunkAPI.rejectWithValue(error.response?.data);
+      }
+      return thunkAPI.rejectWithValue("Could not Create News Post");
+    }
+  }
+);
+
+interface IUpdateEvent {
+  payload: IAddNews;
+  postId: string;
+}
+
+export const updateBlogPost = createAppAsyncThunk(
+  "news/updateBlogPost",
+  async ({ postId, payload }: IUpdateEvent, thunkAPI) => {
+    try {
+      const res = await axiosInstance.patch(`/blogs/${postId}`, payload);
+
+      return res.data.blog;
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        return thunkAPI.rejectWithValue(error.response?.data);
+      }
+      return thunkAPI.rejectWithValue("Could not Get Update News Post");
+    }
+  }
+);
+
+
+export const deleteBlogPost = createAppAsyncThunk(
+  "news/deleteBlogPost",
+  async (blogId: string, thunkAPI) => {
+    try {
+      await axiosInstance.delete(`/blogs/${blogId}`);
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        return thunkAPI.rejectWithValue(error.response?.data);
+      }
+      return thunkAPI.rejectWithValue("Could not Delete News Post");
     }
   }
 );

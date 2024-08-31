@@ -1,8 +1,10 @@
-"use client"
+"use client";
 
+import PageLoader from "@/components/shared/PageLoader";
 import PageTitle from "@/components/shared/PageTitle";
 import { fetchGallery } from "@/lib/redux/slices/gallery/galleryThunk";
 import { AppDispatch, RootState } from "@/lib/redux/store";
+import Image from "next/image";
 import { FC, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -24,8 +26,8 @@ const Gallery: FC<GalleryProps> = () => {
   }, []);
 
   return (
-    <div className="space-y-28">
-         <div className=" hidden  bg-[url('/images/bg-deco.svg')] bg-cover bg-center absolute top-0 right-0 w-[60%] h-screen md:flex z-0" />
+    <div className="grid gap-20">
+      <div className="hidden  bg-[url('/images/bg-deco.svg')] bg-cover bg-center absolute top-0 right-0 w-[60%] h-[200px] md:flex z-0" />
       <PageTitle title="Gallery" />
       <div className="space-y-28 w-frame">
         <div className="lg:w-[60%] mx-auto space-y-8">
@@ -33,20 +35,28 @@ const Gallery: FC<GalleryProps> = () => {
             A picture is worth more than a thousand words
           </h3>
           <p className="text-[#667085] text-center text-[1.6rem] lg:text-2xl leading-[3rem]">
-            Explore on galleries to see pictures of past trainings,
-            meetings and other events
+            Explore on galleries to see pictures of past trainings, meetings and
+            other events
           </p>
         </div>
 
         <div className="grid gap-12 lg:grid-cols-3">
-          {gallery?.map((item, index) => (
-            <img
-              key={index}
-              src={item.path}
-              alt={item.path}
-              className="h-[35rem] object-cover"
-            />
-          ))}
+          {gallery ? (
+            gallery?.map((item, index) => (
+              <Image
+                key={index}
+                src={item.image as string}
+                alt={item.image as string}
+                className="h-[35rem] object-cover"
+                height={500}
+                width={500}
+              />
+            ))
+          ) : (
+          <div className="col-span-3">
+              <PageLoader />
+          </div>
+          )}
         </div>
       </div>
     </div>

@@ -4,12 +4,14 @@ import AuthSlice from "./slices/auth/authSlice";
 
 import GallerySlice from "./slices/gallery/gallerySlice";
 import NewsSlice from "./slices/news/newsSlice";
+import ModalSlice from "./slices/modalSlice";
 
 export const store = configureStore({
   reducer: {
     auth: AuthSlice,
     gallery: GallerySlice,
     news: NewsSlice,
+    modal: ModalSlice
   },
 });
 
