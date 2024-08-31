@@ -15,7 +15,7 @@ import OptsDropdown from "@/components/shared/OptionsDropdown";
 
 interface NewsPostTableBodyProps {}
 const NewsPostTableBody: FC<NewsPostTableBodyProps> = () => {
-  const [selectedEventId, setSelectedEventId] = useState<number | null>(null);
+  const [selectedEventId, setSelectedEventId] = useState<string | null>(null);
 
   const [newsData, setNewsData] = useState<INews[] | null>(null);
 
@@ -38,7 +38,7 @@ const NewsPostTableBody: FC<NewsPostTableBodyProps> = () => {
       id: "2",
       icon: <Eye />,
       text: "View",
-      btnOnclick: function (userId: number) {
+      btnOnclick: function (userId: string) {
         router.push(`${userId}`);
       },
     },
@@ -46,7 +46,7 @@ const NewsPostTableBody: FC<NewsPostTableBodyProps> = () => {
       id: "2",
       icon: <Pen />,
       text: "Edit",
-      btnOnclick: function (userId: number) {
+      btnOnclick: function (userId: string) {
         router.push(`${userId}/edit`);
       },
     },
@@ -54,10 +54,10 @@ const NewsPostTableBody: FC<NewsPostTableBodyProps> = () => {
       id: "3",
       icon: <Trash2 />,
       text: "Delete",
-      btnOnclick: function (selectedId: number) {
+      btnOnclick: function (selectedId: string) {
         if (!allNewsPost) return;
         dispatch(
-          selectNewsPost(allNewsPost.find((item) => item.id === selectedId))
+          selectNewsPost(allNewsPost.find((item) => item._id === selectedId))
         );
         dispatch(
           openModal({
@@ -92,7 +92,7 @@ const NewsPostTableBody: FC<NewsPostTableBodyProps> = () => {
             key={index}
           >
             <TableCell className="font-medium">{index + 1}</TableCell>
-            <TableCell className="font-medium">{post.user_id}</TableCell>
+            <TableCell className="font-medium">{post.author.name}</TableCell>
             <TableCell className="font-medium p-6">
               <Image
                 width={100}
@@ -111,9 +111,9 @@ const NewsPostTableBody: FC<NewsPostTableBodyProps> = () => {
 
             <TableCell className="">
               <div className="font-medium flex flex-col items-center">
-                <span>{format(post.created_at, "dd/LL/yyyy")}</span>
+                <span>{format(post.createdAt, "dd/LL/yyyy")}</span>
                 <span className="text-[#999999]">
-                  {format(post.created_at, "hh:mm aaa")}
+                  {format(post.createdAt, "hh:mm aaa")}
                 </span>
               </div>
             </TableCell>
@@ -124,7 +124,7 @@ const NewsPostTableBody: FC<NewsPostTableBodyProps> = () => {
                   options={userTableOptns}
                   selectedId={selectedEventId}
                   onClick={() => {
-                    setSelectedEventId(post.id);
+                    setSelectedEventId(post._id);
                   }}
                 />
               </div>
