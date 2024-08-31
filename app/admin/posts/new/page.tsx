@@ -1,7 +1,6 @@
 "use client";
 
 import { FC, useState } from "react";
-import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import * as Yup from "yup";
 import { motion } from "framer-motion";
@@ -17,6 +16,10 @@ import axios, { AxiosError } from "axios";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { CustomToolbar } from "@/components/news/molecules/CustomToolbar";
+import dynamic from "next/dynamic";
+
+const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
+
 
 interface NewBlogPostProps {}
 const NewBlogPost: FC<NewBlogPostProps> = () => {
