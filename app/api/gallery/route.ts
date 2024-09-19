@@ -16,34 +16,20 @@ export async function GET(req: NextRequest) {
       mongoose.model("AdminUser", adminUserSchema);
     }
 
-    const session = await getAuthSession();
+    // Query the database for the paginated data
+    const [gallery, total] = await Promise.all([
+      Gallery.find().populate("uploadedBy").skip(skip).limit(limit), // Get the current page of items
+      Gallery.countDocuments(), // Get the total number of items
+    ]);
 
-    if (!session || !session.user) {
-      return new Response("You must be Logged in ", {
-        status: 401,
-      });
-    }
+    const numberOfPages = Math.ceil(total / limit);
 
-    if (session?.user.role === "admin" || session?.user.role === "superadmin") {
-      // Query the database for the paginated data
-      const [gallery, total] = await Promise.all([
-        Gallery.find().populate("uploadedBy").skip(skip).limit(limit), // Get the current page of items
-        Gallery.countDocuments(), // Get the total number of items
-      ]);
-
-      const numberOfPages = Math.ceil(total / limit);
-
-      return new Response(
-        JSON.stringify({ gallery, total, numberOfPages, currentPage }),
-        {
-          status: 200,
-        }
-      );
-    } else {
-      return new Response("You cannot access this resource", {
-        status: 403,
-      });
-    }
+    return new Response(
+      JSON.stringify({ gallery, total, numberOfPages, currentPage }),
+      {
+        status: 200,
+      }
+    );
   } catch (error) {
     return new Response("Could not get transactions, Please try again", {
       status: 500,
@@ -80,7 +66,7 @@ export async function POST(req: NextRequest) {
     const galleryItem = await Gallery.create({
       title,
       image,
-      uploadedBy: session.user.id
+      uploadedBy: session.user.id,
     });
 
     return new Response(JSON.stringify({ galleryItem }), {
