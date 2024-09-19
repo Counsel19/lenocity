@@ -1,6 +1,6 @@
-import { Button, buttonVariants } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { ChevronRight, SquareChartGantt } from "lucide-react";
+import { CircleCheck, SquareChartGantt } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React, { FC } from "react";
@@ -33,7 +33,9 @@ const ServiceCard: FC<ServiceCardProps> = ({
         <span className=" opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-opacity duration-1000 ease-out absolute p-5 -top-8 right-8 -translate-y-[50%] bg-orange-100 rounded-full">
           <SquareChartGantt color="#000000" />
         </span>
-        <p className="text-[1.5rem] leading-[3rem] truncate-2-lines">{description}</p>
+        <p className="text-[1.5rem] leading-[3rem] truncate-2-lines">
+          {description}
+        </p>
         <div className="flex justify-end">
           <Link
             href={link}
@@ -43,7 +45,7 @@ const ServiceCard: FC<ServiceCardProps> = ({
               })
             )}
           >
-            <ChevronRight />
+            <CircleCheck size={25} />
           </Link>
         </div>
       </div>
