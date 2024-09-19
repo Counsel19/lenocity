@@ -1,7 +1,10 @@
 import { NextRequest } from "next/server";
 import { getAuthSession } from "@/lib/auth";
 import { connectDB } from "@/lib/mongoose";
+import { adminUserSchema } from "@/models/AdminUser";
+
 import BlogPost from "@/models/Post";
+import mongoose from "mongoose";
 
 export async function GET(req: NextRequest) {
   const currentPage = parseInt(req.nextUrl.searchParams.get("page") || "1");
@@ -9,34 +12,26 @@ export async function GET(req: NextRequest) {
   const skip = (currentPage - 1) * limit;
   try {
     await connectDB();
-    const session = await getAuthSession();
 
-    if (!session || !session.user) {
-      return new Response("You must be Logged in ", {
-        status: 401,
-      });
+    // Force registration of AdminUser model before any queries
+    if (!mongoose.models.AdminUser) {
+      mongoose.model("AdminUser", adminUserSchema);
     }
 
-    if (session?.user.role === "admin" || session?.user.role === "superadmin") {
-      // Query the database for the paginated data
-      const [blogs, total] = await Promise.all([
-        BlogPost.find().populate("author").skip(skip).limit(limit), // Get the current page of items
-        BlogPost.countDocuments(), // Get the total number of items
-      ]);
+    // Query the database for the paginated data
+    const [blogs, total] = await Promise.all([
+      BlogPost.find().populate("author").skip(skip).limit(limit), // Get the current page of items
+      BlogPost.countDocuments(), // Get the total number of items
+    ]);
 
-      const numberOfPages = Math.ceil(total / limit);
+    const numberOfPages = Math.ceil(total / limit);
 
-      return new Response(
-        JSON.stringify({ blogs, total, numberOfPages, currentPage }),
-        {
-          status: 200,
-        }
-      );
-    } else {
-      return new Response("You cannot access this resource", {
-        status: 403,
-      });
-    }
+    return new Response(
+      JSON.stringify({ blogs, total, numberOfPages, currentPage }),
+      {
+        status: 200,
+      }
+    );
   } catch (error) {
     const err = error as Error;
     return new Response(

@@ -1,13 +1,18 @@
 import mongoose from "mongoose";
+
 const { MONGODB_URL } = process.env;
+
 export const connectDB = async () => {
+  if (mongoose.connection.readyState >= 1) {
+    // Already connected or connecting, reuse the existing connection
+    return;
+  }
+
   try {
-    const { connection } = await mongoose.connect(MONGODB_URL as string);
-    if (connection.readyState === 1) {
-      return Promise.resolve(true);
-    }
+    await mongoose.connect(MONGODB_URL as string);
+    console.log("MongoDB connected successfully");
   } catch (error) {
-    console.error(error);
-    return Promise.reject(error);
+    console.error("MongoDB connection error", error);
+    throw new Error("Could not connect to database");
   }
 };

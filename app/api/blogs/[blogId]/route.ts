@@ -1,6 +1,8 @@
 import { getAuthSession } from "@/lib/auth";
 import { connectDB } from "@/lib/mongoose";
+import { adminUserSchema } from "@/models/AdminUser";
 import BlogPost from "@/models/Post";
+import mongoose from "mongoose";
 import { NextRequest } from "next/server";
 
 export async function GET(
@@ -10,27 +12,18 @@ export async function GET(
   const { blogId } = params;
   try {
     await connectDB();
-    const session = await getAuthSession();
 
-    if (!session || !session.user) {
-      return new Response("You must be Logged in ", {
-        status: 401,
-      });
+    if (!mongoose.models.AdminUser) {
+      mongoose.model("AdminUser", adminUserSchema);
     }
 
-    if (session?.user.role === "admin" || session?.user.role === "superadmin") {
-      // Query the database for the paginated data
+    // Query the database for the paginated data
 
-      const blog = await BlogPost.findById(blogId).populate("author");
+    const blog = await BlogPost.findById(blogId).populate("author");
 
-      return new Response(JSON.stringify({ blog }), {
-        status: 200,
-      });
-    } else {
-      return new Response("You cannot access this resource", {
-        status: 403,
-      });
-    }
+    return new Response(JSON.stringify({ blog }), {
+      status: 200,
+    });
   } catch (error) {
     const err = error as Error;
     return new Response(
@@ -46,7 +39,6 @@ export async function PATCH(
   req: NextRequest,
   { params }: { params: { blogId: string } }
 ) {
-
   const body = await req.json();
 
   const { blogId } = params;

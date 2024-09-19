@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import { SignJWT } from "jose";
 
-const adminUserSchema = new mongoose.Schema(
+export const adminUserSchema = new mongoose.Schema(
   {
     name: {
       type: String,

@@ -2,6 +2,8 @@ import { NextRequest } from "next/server";
 import { getAuthSession } from "@/lib/auth";
 import { connectDB } from "@/lib/mongoose";
 import Gallery from "@/models/Gallery";
+import { adminUserSchema } from "@/models/AdminUser";
+import mongoose from "mongoose";
 
 export async function GET(req: NextRequest) {
   const currentPage = parseInt(req.nextUrl.searchParams.get("page") || "1");
@@ -9,6 +11,11 @@ export async function GET(req: NextRequest) {
   const skip = (currentPage - 1) * limit;
   try {
     await connectDB();
+
+    if (!mongoose.models.AdminUser) {
+      mongoose.model("AdminUser", adminUserSchema);
+    }
+
     const session = await getAuthSession();
 
     if (!session || !session.user) {
