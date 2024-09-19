@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import Brand from "../shared/Brand";
 import SidebarLink from "./SidebarLink";
 import { Button, buttonVariants } from "../ui/button";
+import Image from "next/image";
 
 interface SidebarProps {}
 const Sidebar: FC<SidebarProps> = ({}) => {
@@ -23,20 +24,24 @@ const Sidebar: FC<SidebarProps> = ({}) => {
   return (
     <div className="w-full text-base h-full space-y-2 text-white rounded-lg grid grid-rows-[auto_1fr]">
       <div className=" bg-orange-600 h-full rounded-lg py-8 px-4 space-y-20">
-        <Brand />
+        <div className="grid place-content-center bg-white rounded-lg p-3">
+          <Image
+            className="h-[10rem] w-[10rem] object-contain"
+            alt="LOgo"
+            width={200}
+            height={200}
+            src={"/images/logo-nobg.png"}
+          />
+        </div>
         <div className="flex flex-col space-y-8 ">
           <h5 className="text-slate-200 text-md">Menu</h5>
-          <SidebarLink icon={<Home />} text="Dashboard" link="/admin/dashboard" />
           <SidebarLink
-            icon={<BookCopy />}
-            text="Post"
-            link="/admin/posts"
+            icon={<Home />}
+            text="Dashboard"
+            link="/admin/dashboard"
           />
-          <SidebarLink
-            icon={<Images />}
-            text="Gallery"
-            link="/admin/gallery"
-          />
+          <SidebarLink icon={<BookCopy />} text="Post" link="/admin/posts" />
+          <SidebarLink icon={<Images />} text="Gallery" link="/admin/gallery" />
         </div>
 
         <div className="space-y-3">
